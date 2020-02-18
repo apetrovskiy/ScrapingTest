@@ -14,6 +14,13 @@ class BasicSpider(Spider):
     start_urls = ['http://localhost:9312/properties/property_000000.html']
 
     def parse(self, response):
+        """This function parses a property page
+        @url http://localhost:9312/properties/property_000000.html
+        @returns items 1
+        @scrapes title price description address image_urls
+        @scrapes url project spider server date
+        """
+        
         loader = ItemLoader(item=PropertiesItem(), response=response)
 
         loader.add_xpath('title', '//*[@itemprop="name"][1]/text()',
