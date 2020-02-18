@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from scrapy import Spider
+from scrapy.loader import ItemLoader
 from properties.items import PropertiesItem
 
 
@@ -9,15 +10,13 @@ class BasicSpider(Spider):
     start_urls = ['http://localhost:9312/properties/property_000000.html']
 
     def parse(self, response):
-        item = PropertiesItem()
-        item['title'] = response.xpath(
-            '//*[@itemprop="name"][1]/text()').extract()
-        item['price'] = response.xpath(
-            '//*[@itemprop="price"][1]/text()').re('[.0-9]+')
-        item['description'] = response.xpath(
-            '//*[@itemprop="description"][1]/text()').extract()
-        item['address'] = response.xpath(
-            '//*[@itemtype="http://schema.org/Place"][1]/text()').extract()
-        item['image_urls'] = response.xpath(
-            '//*[@itemprop="image"][1]/@src').extract()
-        return item
+        l = ItemLoader(item=PropertiesItem(), response=response)
+
+        l.add_xpath('title', '//*[@itemprop="name"][1]/text()')
+        l.add_xpath('price', '//*[@itemprop="price"][1]/text()', re='[.0-9]+')
+        l.add_xpath('description', '//*[@itemprop="description"][1]/text()')
+        l.add_xpath('address', '//*[@itemtype='
+                    '"http://schema.org/Place"][1]/text()')
+        l.add_xpath('image_urls', '//*[@itemprop="image"][1]/@src')
+
+        return l.load_item()
