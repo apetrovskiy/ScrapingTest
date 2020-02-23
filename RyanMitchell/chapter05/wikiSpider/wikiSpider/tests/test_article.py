@@ -35,7 +35,7 @@ FILE_SYSTEM_PREFIX = 'file://'
 SLASHE = '/'
 
 
-class TestItems(TestCase):
+class TestArticle(TestCase):
     BROWSE = SLASHE + FIRST_HTML_FILE
     HTML_EXT = '.mhtml'
 
