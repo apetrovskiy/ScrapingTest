@@ -67,14 +67,15 @@ class TestArticles(TestCase):
         ArticlesSpider.HTML_EXT = self.HTML_EXT
         self.spider.start_requests = self.start_requests
 
-    def test_urls(self):
-        #actual_results = list(
+    def test_article_urls(self):
         actual_results = self.spider.parse_items(
-            self.get_response_object(self.get_path_to_test_data() + FIRST_HTML_FILE))
-        #)
+            self.get_response_object(self.get_path_to_test_data() + FIRST_HTML_FILE), True)
         print(actual_results)
-        #for result_tuple in actual_results:
-        #    assert self.get_path_to_test_data() in result_tuple[0]
+
+    def test_non_article_urls(self):
+        actual_results = self.spider.parse_items(
+            self.get_response_object(self.get_path_to_test_data() + FIRST_HTML_FILE), False)
+        print(actual_results)
 
     def get_response_object(self, url):
         path_to_file = url.replace(FILE_SYSTEM_PREFIX, '')
