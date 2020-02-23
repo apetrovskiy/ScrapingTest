@@ -19,3 +19,4 @@ class ArticleSpider(Spider):
         title = response.css('h1::text').extract_first()
         print('URL is: {}'.format(url))
         print('Title is: {}'.format(title))
+        return (url, title)

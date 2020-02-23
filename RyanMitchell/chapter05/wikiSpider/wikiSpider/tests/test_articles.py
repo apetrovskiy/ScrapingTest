@@ -1,7 +1,6 @@
 from os import getcwd
 from unittest import TestCase, main
 from scrapy import Item, Spider
-#from scrapy.commands.parse import Command
 from scrapy.commands.runspider import Command
 from scrapy.loader import ItemLoader
 from scrapy.http.headers import Headers
@@ -10,8 +9,6 @@ from scrapy.http.response.text import TextResponse
 from scrapy.http.response.html import HtmlResponse
 from scrapy.core.scraper import Scraper
 from scrapy.crawler import Crawler, CrawlerRunner
-#from artworks.items import ArtworksItem
-#from artworks.spiders.trial import ArticleSpider, INSUNSH_URL_PART, SUMMERTIME_URL_PART
 #from RyanMitchell.chapter05.wikiSpider.\
 from wikiSpider.spiders.article import ArticleSpider
 
@@ -72,23 +69,7 @@ class TestItems(TestCase):
             self.get_path_to_test_data() + SECOND_HTML_FILE,
             self.get_path_to_test_data() + THIRD_HTML_FILE
         ]
-        #reqs = [Request('http://a.com/b.html'), Request('http://b.com/1')]
-        #out = list(self.mw.process_spider_output(res, reqs, self.spider))
-        '''
-        runner = CrawlerRunner(None)
-        crawler = runner.create_crawler(ArticleSpider)
-        #self.spider = crawler._create_spider(**self._get_spiderargs())
-        self.mw = OffsiteMiddleware.from_crawler(crawler)
-        self.mw.spider_opened(self.spider)
-        responses = [self.mw.process_spider_output(None, [Request(url=url)], self.spider)
-                for url in urls]
-        print(responses)
-        for response in responses:
-            for resp in list(response):
-                print('===== single response ========')
-                print(resp)
-                yield self.spider.parse(resp)
-        '''
+
         for url in urls:
             yield self.spider.parse(self.get_response_object(url))
 
@@ -99,8 +80,10 @@ class TestItems(TestCase):
         self.spider.start_requests = self.start_requests
 
     def test_urls(self):
-        result = list(self.spider.start_requests())
-        print(result)
+        actual_results = list(self.spider.start_requests())
+        print(actual_results)
+        for result_tuple in actual_results:
+            assert self.get_path_to_test_data() in result_tuple[0]
 
     def get_response_object(self, url):
         path_to_file = url.replace(FILE_SYSTEM_PREFIX, '')
