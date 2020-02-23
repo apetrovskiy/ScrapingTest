@@ -6,6 +6,7 @@ from scrapy.http.response.html import HtmlResponse
 #from RyanMitchell.chapter05.wikiSpider.\
 from wikiSpider.spiders.article import ArticleSpider
 
+
 WIKI_FOLDER_NAME = 'wikiSpider'
 TESTS_FOLDER_NAME = 'tests'
 TEST_DATA_FOLDER_NAME = 'test_data'
