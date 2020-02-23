@@ -10,8 +10,12 @@ from properties.items import PropertiesItem
 
 class BasicSpider(Spider):
     name = 'basic'
-    allowed_domains = ['web']
-    start_urls = ['http://localhost:9312/properties/property_000000.html']
+    allowed_domains = ['localhost']
+    start_urls = [
+        'http://localhost:9312/properties/property_000000.html',
+        'http://localhost:9312/properties/property_000001.html',
+        'http://localhost:9312/properties/property_000002.html'
+    ]
 
     def parse(self, response):
         """This function parses a property page
