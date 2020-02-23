@@ -1,7 +1,7 @@
 from scrapy import Spider, Request
 
 
-class ArticleSpider(Spider):
+class ArticleSpider1(Spider):
     name = 'article'
 
     def start_requests(self):

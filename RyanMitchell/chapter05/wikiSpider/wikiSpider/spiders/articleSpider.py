@@ -4,13 +4,13 @@ from scrapy.spiders import CrawlSpider, Rule
 from wikiSpider.items import Article
 
 
-class ArticlesSpider(CrawlSpider):
+class ArticleSpider4(CrawlSpider):
     name = 'articleItems'
     allowed_domains = ['wikipedia.org']
     start_urls = ['https://en.wikipedia.org/wiki/'
                   'Benevolent_dictator_for_life']
     rules = [
-        Rule(LinkExtractor(allow='^(/wiki/)((?!:).)*$'),
+        Rule(LinkExtractor(allow='(/wiki/)((?!:).)*$'),
              callback='parse_items', follow=True)
     ]
 
@@ -22,7 +22,7 @@ class ArticlesSpider(CrawlSpider):
                                          '//text()').extract()
         lastUpdated = response.css('li#footer-info-lastmod'
                                    '::text').extract_first()
-        lastUpdated = lastUpdated.replace('This page was '
+        article['lastUpdated'] = lastUpdated.replace('This page was '
             'last edited on ', ''
         )
         return article
