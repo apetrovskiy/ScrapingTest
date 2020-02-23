@@ -4,7 +4,7 @@ from scrapy.http.headers import Headers
 from scrapy.http.response import Request
 from scrapy.http.response.html import HtmlResponse
 #from RyanMitchell.chapter05.wikiSpider.\
-from wikiSpider.spiders.article import ArticleSpider
+from wikiSpider.spiders.article import ArticleSpider1
 
 
 WIKI_FOLDER_NAME = 'wikiSpider'
@@ -60,9 +60,9 @@ class TestArticle(TestCase):
             yield self.spider.parse(self.get_response_object(url))
 
     def setUp(self):
-        self.spider = ArticleSpider(name=SPIDER_NAME)
-        ArticleSpider.BROWSE = self.BROWSE
-        ArticleSpider.HTML_EXT = self.HTML_EXT
+        self.spider = ArticleSpider1(name=SPIDER_NAME)
+        ArticleSpider1.BROWSE = self.BROWSE
+        ArticleSpider1.HTML_EXT = self.HTML_EXT
         self.spider.start_requests = self.start_requests
 
     def test_urls(self):
