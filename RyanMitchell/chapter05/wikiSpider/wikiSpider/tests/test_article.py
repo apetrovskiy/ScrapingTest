@@ -9,7 +9,8 @@ from scrapy.http.response.text import TextResponse
 from scrapy.http.response.html import HtmlResponse
 from scrapy.core.scraper import Scraper
 from scrapy.crawler import Crawler, CrawlerRunner
-from RyanMitchell.chapter05.wikiSpider.wikiSpider.spiders.articles import ArticlesSpider
+#from RyanMitchell.chapter05.wikiSpider.\
+from wikiSpider.spiders.article import ArticleSpider
 
 
 from scrapy.spidermiddlewares.offsite import OffsiteMiddleware, URLWarning
@@ -27,8 +28,6 @@ SPIDERS_FOLDER_NAME = 'spiders'
 FIRST_HTML_FILE = 'python.mhtml'
 SECOND_HTML_FILE = 'func.mhtml'
 THIRD_HTML_FILE = 'monty.mhtml'
-FOURTH_HTML_FILE = 'Interpreted_language.mhtml'
-FIFTH_HTML_FILE = 'High-level_programming_language.mhtml'
 
 INSUNSH_HTML_FILE = '/browse/insunsh.html'
 SPIDER_NAME = 'wiki_spider_1'
@@ -36,7 +35,7 @@ FILE_SYSTEM_PREFIX = 'file://'
 SLASHE = '/'
 
 
-class TestArticles(TestCase):
+class TestArticle(TestCase):
     BROWSE = SLASHE + FIRST_HTML_FILE
     HTML_EXT = '.mhtml'
 
@@ -75,19 +74,16 @@ class TestArticles(TestCase):
             yield self.spider.parse(self.get_response_object(url))
 
     def setUp(self):
-        self.spider = ArticlesSpider(name=SPIDER_NAME)
-        ArticlesSpider.BROWSE = self.BROWSE
-        ArticlesSpider.HTML_EXT = self.HTML_EXT
+        self.spider = ArticleSpider(name=SPIDER_NAME)
+        ArticleSpider.BROWSE = self.BROWSE
+        ArticleSpider.HTML_EXT = self.HTML_EXT
         self.spider.start_requests = self.start_requests
 
     def test_urls(self):
-        #actual_results = list(
-        actual_results = self.spider.parse_items(
-            self.get_response_object(self.get_path_to_test_data() + FIRST_HTML_FILE))
-        #)
+        actual_results = list(self.spider.start_requests())
         print(actual_results)
-        #for result_tuple in actual_results:
-        #    assert self.get_path_to_test_data() in result_tuple[0]
+        for result_tuple in actual_results:
+            assert self.get_path_to_test_data() in result_tuple[0]
 
     def get_response_object(self, url):
         path_to_file = url.replace(FILE_SYSTEM_PREFIX, '')
