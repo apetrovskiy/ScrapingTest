@@ -1,25 +1,11 @@
 from os import getcwd
 from unittest import TestCase, main
-from scrapy import Item, Spider
-from scrapy.commands.runspider import Command
-from scrapy.loader import ItemLoader
 from scrapy.http.headers import Headers
-from scrapy.http.response import Request, Response
-from scrapy.http.response.text import TextResponse
+from scrapy.http.response import Request
 from scrapy.http.response.html import HtmlResponse
-from scrapy.core.scraper import Scraper
-from scrapy.crawler import Crawler, CrawlerRunner
 #from RyanMitchell.chapter05.wikiSpider.\
 from wikiSpider.spiders.article import ArticleSpider
 
-
-from scrapy.spidermiddlewares.offsite import OffsiteMiddleware, URLWarning
-
-
-
-from scrapy.loader import ItemLoader
-from scrapy.loader.processors import MapCompose, Join
-from scrapy.http.response.xml import XmlResponse
 
 WIKI_FOLDER_NAME = 'wikiSpider'
 TESTS_FOLDER_NAME = 'tests'
