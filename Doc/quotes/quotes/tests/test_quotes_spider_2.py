@@ -3,7 +3,7 @@ from scrapy.http.headers import Headers
 from scrapy.http.response.html import HtmlResponse
 from scrapy.http.request import Request
 from unittest import TestCase, main
-from quotes.quotes.spiders.quotes_spider import QuotesSpider2
+from quotes.quotes.spiders.quotes_spider_2 import QuotesSpider2
 
 START_PAGE = '/tag/humor/'
 QUOTES_FOLDER_NAME = 'quotes'

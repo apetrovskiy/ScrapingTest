@@ -17,9 +17,6 @@ class QuotesSpider(Spider):
                 'text': quote.css('span.text::text').get(),
                 'author': quote.xpath('//span/small/text()').get(),
             }
-        print("============= next page =================")
         next_page = response.css('li.next a::attr("href")').get()
         if next_page is not None:
-            print("============= next page is not None ===========")
-            print(self.URL + next_page)
             yield response.follow(self.URL + next_page, self.parse)
