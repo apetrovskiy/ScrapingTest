@@ -1,15 +1,18 @@
-from scrapy import Spider
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
 
 # URL = 'http://quotes.toscrape.com'
 START_PAGE = '/tag/humor/'
 
 
-class QuotesSpider(Spider):
+class QuotesSpider2(CrawlSpider):
     name = 'quotes'
     URL = 'http://quotes.toscrape.com'
     start_urls = [
         URL + START_PAGE,
     ]
+    Rule(LinkExtractor(allow='.*'),
+         callback='parse', follow=True)
 
     def parse(self, response):
         for quote in response.css('div.quote'):
@@ -19,4 +22,7 @@ class QuotesSpider(Spider):
             }
         next_page = response.css('li.next a::attr("href")').get()
         if next_page is not None:
-            yield response.follow(self.URL + next_page, self.parse)
+            yield self.get_response(response, self.URL + next_page)
+
+    def get_response(self, response, url):
+        return response.follow(url)
