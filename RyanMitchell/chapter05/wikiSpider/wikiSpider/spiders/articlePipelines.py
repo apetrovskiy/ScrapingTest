@@ -4,13 +4,13 @@ from scrapy.spiders import CrawlSpider, Rule
 from wikiSpider.items import Article
 
 
-class ArticlesSpider5555(CrawlSpider):
-    name = 'articleItems5'
+class ArticlesSpider5(CrawlSpider):
+    name = 'articlePipelines'
     allowed_domains = ['wikipedia.org']
     start_urls = ['https://en.wikipedia.org/wiki/'
                   'Benevolent_dictator_for_life']
     rules = [
-        Rule(LinkExtractor(allow='^(/wiki/)((?!:).)*$'),
+        Rule(LinkExtractor(allow='(/wiki/)((?!:).)*$'),
              callback='parse_items', follow=True)
     ]
 
