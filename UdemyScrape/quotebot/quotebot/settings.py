@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for properties project
+# Scrapy settings for quotebot project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'properties'
+BOT_NAME = 'quotebot'
 
-SPIDER_MODULES = ['properties.spiders']
-NEWSPIDER_MODULE = 'properties.spiders'
+SPIDER_MODULES = ['quotebot.spiders']
+NEWSPIDER_MODULE = 'quotebot.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'properties (+http://www.yourdomain.com)'
+#USER_AGENT = 'quotebot (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -47,13 +47,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'properties.middlewares.PropertiesSpiderMiddleware': 543,
+#    'quotebot.middlewares.QuotebotSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'properties.middlewares.PropertiesDownloaderMiddleware': 543,
+#    'quotebot.middlewares.QuotebotDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'properties.pipelines.PropertiesPipeline': 300,
+#    'quotebot.pipelines.QuotebotPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
