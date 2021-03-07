@@ -8,7 +8,7 @@ certifi==2019.11.28
 cffi==1.13.2
 chardet==3.0.4
 constantly==15.1.0
-cryptography==2.8
+cryptography==3.2
 cssselect==1.1.0
 decorator==4.4.1
 defusedxml==0.6.0
@@ -37,7 +37,7 @@ mistune==0.8.4
 more-itertools==8.1.0
 nbconvert==5.6.1
 nbformat==5.0.3
-notebook==6.0.2
+notebook==6.1.5
 pandocfilters==1.4.2
 parsel==1.5.2
 parso==0.5.2
