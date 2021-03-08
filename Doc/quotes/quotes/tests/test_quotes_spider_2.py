@@ -89,6 +89,7 @@ class QuotesSpiderTest(TestCase):
         for res in actual_result:
             print(res)
     '''
+
     def test_quotes_on_page_02(self):
         # Given
         '''
@@ -100,7 +101,7 @@ class QuotesSpiderTest(TestCase):
         '''
         first_page_result = list(self.spider.parse(self.response))
         response = first_page_result[-1:].pop(0)
-        #print(response)
+        # print(response)
 
         for res in first_page_result:
             print(res)
@@ -169,10 +170,10 @@ class QuotesSpiderTest(TestCase):
             # yield self.get_response(response, self.URL + nex#_page)
 
             #url = self.URL + next_page
-            #yield self.get_request(response, url)
+            # yield self.get_request(response, url)
 
-            #yield QuotesSpider2.get_request(response=response, url=url)
-            #for resp in response:
+            # yield QuotesSpider2.get_request(response=response, url=url)
+            # for resp in response:
             #    yield QuotesSpider2.get_request(response=resp, url=url)
 
 
