@@ -3,8 +3,9 @@ from scrapy.http.headers import Headers
 from scrapy.http.request import Request
 from scrapy.http.response.html import HtmlResponse
 from unittest import TestCase, main
-#from Doc.tutorial.\
-from tutorial.spiders.quotes_spider_3 import QuotesSpider3
+# from Doc.tutorial.\
+from Doc.tutorial.tutorial.spiders.quotes_spider_3 import QuotesSpider3
+
 
 TUTS_FOLDER_NAME = 'tutorial'
 TESTS_FOLDER_NAME = 'tests'
@@ -15,6 +16,7 @@ SLASHE = "/"
 
 class QuotesSpider3Test(TestCase):
     SPIDER_NAME = 'quotes_test'
+
     @classmethod
     def get_path_to_test_data(cls):
         result = getcwd()
@@ -45,10 +47,10 @@ class QuotesSpider3Test(TestCase):
         return path
 
     start_urls = [
-            get_path_to_test_data() + '1/',
-            get_path_to_test_data() + '2/',
-        ]
-    
+        get_path_to_test_data() + '1/',
+        get_path_to_test_data() + '2/',
+    ]
+
     def setUp(self) -> None:
         self.spider = QuotesSpider3(name=self.SPIDER_NAME)
 

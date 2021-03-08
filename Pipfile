@@ -24,6 +24,7 @@ twisted = "*"
 terminado = "*"
 queuelib = "*"
 requests = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.9"

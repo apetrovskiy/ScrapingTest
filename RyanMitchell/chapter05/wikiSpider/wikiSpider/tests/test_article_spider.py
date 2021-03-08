@@ -4,7 +4,7 @@ from scrapy.http.headers import Headers
 from scrapy.http.response import Request
 from scrapy.http.response.html import HtmlResponse
 #from RyanMitchell.chapter05.wikiSpider.\
-from wikiSpider.spiders.articleSpider import ArticleSpider4
+from RyanMitchell.chapter05.wikiSpider.wikiSpider.spiders.articleSpider import ArticleSpider4
 
 
 WIKI_FOLDER_NAME = 'wikiSpider'

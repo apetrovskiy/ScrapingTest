@@ -3,8 +3,8 @@ from unittest import TestCase, main
 from scrapy.http.headers import Headers
 from scrapy.http.response import Request
 from scrapy.http.response.html import HtmlResponse
-#from RyanMitchell.chapter05.wikiSpider.\
-from wikiSpider.spiders.articlesMoreRules import ArticlesSpider3
+# from RyanMitchell.chapter05.wikiSpider.\
+from RyanMitchell.chapter05.wikiSpider.wikiSpider.spiders.articlesMoreRules import ArticlesSpider3
 
 
 WIKI_FOLDER_NAME = 'wikiSpider'
@@ -97,14 +97,17 @@ class TestArticlesMoreRules(TestCase):
 
     def generate_request_headers(self):
         headers = Headers()
-        headers.appendlist('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9')
+        headers.appendlist(
+            'Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9')
         headers.appendlist('Accept-Encoding', 'gzip, deflate')
         headers.appendlist('Accept-Language', 'en-US,en;q=0.9,ru;q=0.8')
         headers.appendlist('Connection', 'keep-alive')
         headers.appendlist('Host', 'pstrial-2019-12-16.toscrape.com')
-        headers.appendlist('Referer', 'http://pstrial-2019-12-16.toscrape.com/browse/')
+        headers.appendlist(
+            'Referer', 'http://pstrial-2019-12-16.toscrape.com/browse/')
         headers.appendlist('Upgrade-Insecure-Requests', '1')
-        headers.appendlist('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.106 Safari/537.36')
+        headers.appendlist(
+            'User-Agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.106 Safari/537.36')
         return headers
 
 
