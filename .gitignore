@@ -334,3 +334,6 @@ dmypy.json
 *.csv
 *.html
 *.mhtml
+
+.fake
+.ionide
