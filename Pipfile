@@ -26,6 +26,8 @@ queuelib = "*"
 requests = "*"
 pytest = "*"
 pylint = "*"
+autopep8 = "*"
+pytest-mock = "*"
 
 [requires]
 python_version = "3.9"
