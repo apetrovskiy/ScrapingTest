@@ -12,9 +12,14 @@ class QuotesSpider(scrapy.Spider):
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
 
+    def save_file(self, filename: str, body: str):
+        with open(filename, 'wb') as f:
+            f.write(body)
+
     def parse(self, response):
         page = response.url.split("/")[-2]
         filename = f'quotes-{page}.html'
-        with open(filename, 'wb') as f:
-            f.write(response.body)
+        # with open(filename, 'wb') as f:
+        #     f.write(response.body)
+        self.save_file(filename, response.body)
         self.log(f'Saved file {filename}')
