@@ -6,6 +6,23 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+scrapy = "*"
+flake8 = "*"
+lxml = "*"
+beautifulsoup4 = "*"
+jedi = "*"
+ipython = "*"
+hyperlink = "*"
+bleach = "*"
+automat = "*"
+jinja2 = "*"
+voila = "*"
+urllib3 = "*"
+black = "*"
+twisted = "*"
+terminado = "*"
+queuelib = "*"
+requests = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"
