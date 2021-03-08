@@ -1,9 +1,11 @@
 from os import getcwd
+from scrapy.commands.parse import Command
 from scrapy.http.headers import Headers
-from scrapy.http.response.html import HtmlResponse
 from scrapy.http.request import Request
+from scrapy.http.response.html import HtmlResponse
 from unittest import TestCase, main
-from quotes.quotes.spiders.quotes_spider_2 import QuotesSpider2
+from Doc.quotes.quotes.spiders.quotes_spider_2 import QuotesSpider2
+
 
 START_PAGE = '/tag/humor/'
 QUOTES_FOLDER_NAME = 'quotes'
@@ -66,44 +68,67 @@ class QuotesSpiderTest(TestCase):
         start_urls = [self.get_path_to_test_data() + START_HTML_FILE]
         self.spider = QuotesSpider2(name=SPIDER_NAME)
         self.spider.start_urls = start_urls
-        self.spider.get_response = self.get_response
+        #self.spider.get_request = self.get_request
+        self.spider._follow_links = True
 
-    def test_quotes_on_page_01(self):
-        # Given
-        response = self.get_response_object(
+        self.spider.parse = self.parse
+        #self.spider.parse_extract = self.parse_extract
+
+        self.response = self.get_response_object(
             self.get_path_to_test_data() + START_HTML_FILE)
-
+    '''
+    def test_quotes_on_page_01(self):
         # When
-        actual_result = list(self.spider.parse(response))
+        actual_result = list(self.spider._parse_response(
+            self.response,
+            callback=self.spider.parse,
+            cb_kwargs={},
+            follow=True))
 
         # Then
         assert EXPECTED_NUMBER_OF_QUOTES_PAGE_01 + 1 == len(actual_result)
         for res in actual_result:
             print(res)
+    '''
 
     def test_quotes_on_page_02(self):
         # Given
-        first_page_result = list(self.spider.parse(
-            self.get_response_object(
-                self.get_path_to_test_data() + START_HTML_FILE)))
+        '''
+        first_page_result = list(self.spider._parse_response(
+            self.response,
+            callback=self.spider.parse,
+            cb_kwargs={},
+            follow=True))
+        '''
+        first_page_result = list(self.spider.parse(self.response))
         response = first_page_result[-1:].pop(0)
+        # print(response)
 
+        for res in first_page_result:
+            print(res)
+        '''
         # When
-        actual_result = list(self.spider.parse(response))
+        actual_result = list(self.spider.parse(response)),
 
         # Then
-        assert EXPECTED_NUMBER_OF_QUOTES_PAGE_02 == len(actual_result)
+        #assert EXPECTED_NUMBER_OF_QUOTES_PAGE_02 == len(actual_result)
+        print(len(actual_result))
         for res in actual_result:
             print(res)
+        '''
 
-    def get_response(self, response, url):
+    def get_request(self, response, url):
         response = self.get_response_object(url)
+        print("===========get_request TEST================")
+        print("url: %s" % response.url)
         return response
 
     def get_response_object(self, url):
         path_to_file = url.replace(FILE_SYSTEM_PREFIX, '')
         if path_to_file[-1:] == SLASHE:
             path_to_file = path_to_file[:-1]
+        if url[-1:] == SLASHE:
+            url = url[:-1]
         f = open(path_to_file, 'rb')
         bytess = f.read()
         f.close()
@@ -126,6 +151,31 @@ class QuotesSpiderTest(TestCase):
         if condition not in path:
             return path + addition
         return path
+
+    def parse(self, response):
+        return self.parse_extract(response)
+
+    def parse_extract(self, response):
+        print("========================TEST parse_extract======================")
+        print("response: %s" % response)
+        print("url: %s" % response.url)
+        response = self.get_request(response, response.url)
+        for quote in response.css('div.quote'):
+            yield {
+                'text': quote.css('span.text::text').get(),
+                'author': quote.xpath('//span/small/text()').get(),
+            }
+        next_page = response.css('li.next a::attr("href")').get()
+        if next_page is not None:
+            yield response.follow(self.get_path_to_test_data() + next_page, self.parse_extract)
+            # yield self.get_response(response, self.URL + nex#_page)
+
+            #url = self.URL + next_page
+            # yield self.get_request(response, url)
+
+            # yield QuotesSpider2.get_request(response=response, url=url)
+            # for resp in response:
+            #    yield QuotesSpider2.get_request(response=resp, url=url)
 
 
 if __name__ == '__main__':

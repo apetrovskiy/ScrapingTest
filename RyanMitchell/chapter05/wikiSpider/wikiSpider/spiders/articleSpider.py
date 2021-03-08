@@ -1,7 +1,7 @@
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
-#from RyanMitchell.chapter05.wikiSpider.\
-from wikiSpider.items import Article
+# from RyanMitchell.chapter05.wikiSpider.\
+from RyanMitchell.chapter05.wikiSpider.wikiSpider.items import Article
 
 
 class ArticleSpider4(CrawlSpider):
@@ -23,6 +23,6 @@ class ArticleSpider4(CrawlSpider):
         lastUpdated = response.css('li#footer-info-lastmod'
                                    '::text').extract_first()
         article['lastUpdated'] = lastUpdated.replace('This page was '
-            'last edited on ', ''
-        )
+                                                     'last edited on ', ''
+                                                     )
         return article

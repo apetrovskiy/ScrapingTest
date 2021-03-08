@@ -1,10 +1,11 @@
+from RyanMitchell.chapter05.wikiSpider.wikiSpider.spiders.articles import ArticlesSpider2
 from os import getcwd
 from unittest import TestCase, main
 from scrapy.http.headers import Headers
 from scrapy.http.response import Request
 from scrapy.http.response.html import HtmlResponse
 #from RyanMitchell.chapter05.wikiSpider.\
-from wikiSpider.spiders.articles import ArticlesSpider
+# from wikiSpider.spiders.articles import ArticlesSpider
 
 
 WIKI_FOLDER_NAME = 'wikiSpider'
@@ -62,9 +63,12 @@ class TestArticleItems(TestCase):
             yield self.spider.parse(self.get_response_object(url))
 
     def setUp(self):
-        self.spider = ArticlesSpider(name=SPIDER_NAME)
-        ArticlesSpider.BROWSE = self.BROWSE
-        ArticlesSpider.HTML_EXT = self.HTML_EXT
+        # self.spider = ArticlesSpider(name=SPIDER_NAME)
+        # ArticlesSpider.BROWSE = self.BROWSE
+        # ArticlesSpider.HTML_EXT = self.HTML_EXT
+        self.spider = ArticlesSpider2(name=SPIDER_NAME)
+        ArticlesSpider2.BROWSE = self.BROWSE
+        ArticlesSpider2.HTML_EXT = self.HTML_EXT
         self.spider.start_requests = self.start_requests
 
     def test_article_urls(self):
