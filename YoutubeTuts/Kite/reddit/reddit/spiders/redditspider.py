@@ -19,4 +19,3 @@ class RedditSpider(scrapy.Spider):
 
                 with open("frontpage.html", "a") as page:
                     page.write(html)
-                    page.close()
