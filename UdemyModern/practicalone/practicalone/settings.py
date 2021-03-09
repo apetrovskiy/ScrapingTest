@@ -1,4 +1,4 @@
-# Scrapy settings for practicalonr project
+# Scrapy settings for practicalone project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'practicalonr'
+BOT_NAME = 'practicalone'
 
-SPIDER_MODULES = ['practicalonr.spiders']
-NEWSPIDER_MODULE = 'practicalonr.spiders'
+SPIDER_MODULES = ['practicalone.spiders']
+NEWSPIDER_MODULE = 'practicalone.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'practicalonr (+http://www.yourdomain.com)'
+#USER_AGENT = 'practicalone (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'practicalonr.middlewares.PracticalonrSpiderMiddleware': 543,
+#    'practicalone.middlewares.PracticaloneSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'practicalonr.middlewares.PracticalonrDownloaderMiddleware': 543,
+#    'practicalone.middlewares.PracticaloneDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,7 +63,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'practicalonr.pipelines.PracticalonrPipeline': 300,
+#    'practicalone.pipelines.PracticalonePipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
