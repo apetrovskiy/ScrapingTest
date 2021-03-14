@@ -1,7 +1,11 @@
-import scrapy
-# from scrapy import Request
+import re
+# import scrapy
 from scrapy.http import HtmlResponse
 from scrapy.spiders import Spider
+
+
+reviews_pattern = re.compile("Reviews \((\d+)\)")
+item_code_pattern = re.compile("Item code: (\d+)")
 
 
 class BasicSpider(Spider):
@@ -28,7 +32,7 @@ class BasicSpider(Spider):
 
         pages = response.xpath('//ul[@class="categories shelf"]/li/a')
         if not pages:
-            pages = response.xpath('//ul[@class="categories iasles"]/li/a')
+            pages = response.xpath('//ul[@class="categories aisles"]/li/a')
         if not pages:
             # here is something fishy
             return
@@ -36,7 +40,7 @@ class BasicSpider(Spider):
         for url in pages:
             yield response.follow(url, callback=self.parse_department_pages)
 
-    def handleProductListings(self, response: HtmlResponse):
+    def handle_product_listings(self, response: HtmlResponse):
         urls = response.xpath(
             '//ul[@class="productLister gridView"]//li[@class="gridItem"]//h3/a')
         for url in urls:
@@ -45,3 +49,43 @@ class BasicSpider(Spider):
         next_page = response.xpath('//ul[@clas="pages"]/li[@class="next"]/a')
         if next_page:
             yield response.follow(next_page, callback=self.handle_product_listings)
+
+    def parse_product_detail(self, response: HtmlResponse):
+        product_name = response.xpath('//h1/text()').extract()[0].strip()
+        # product_image = response.urljoin(response.xpath('//div[@id="prductImageHolder"]/img/@src').extract()[0])
+        # product_image = response.urljoin(response.xpath('//div[@class="pd__left skipto-content"]/img/@src').extract()[0])
+        product_image = response.urljoin(response.xpath(
+            '//div[@class="productInfo"]//img/@src').extract()[0])
+
+        price_per_unit = response.xpath(
+            '//div[@class="pricing"]/p[@class="pricePerUnit"]/text()').extract()[0].strip()
+        # units = response.xpath('//div[@class="pricing"]/span[@class="pricePerUnitUnit"]').extract()
+        units = response.xpath(
+            '//div[@class="pricing"]//span[@class="pricePerUnitUnit"]').extract()
+        if units:
+            unit = units[0].strip()
+
+        # ratings = response.xpath('//label[@class="numberOfReviews"]/img/@alt').extract()
+        ratings = response.xpath(
+            '//a[@class="numberOfReviews"]/img/@alt').extract()
+        if ratings:
+            rating = ratings[0]
+        reviews = response.xpath('//label[@class="numberOfReviews"]').extract()
+        if reviews:
+            reviews = reviews_pattern.findall((reviews[0]))
+            if reviews:
+                product_reviews = reviews[0]
+
+        item_code = item_code_pattern.findall(response.xpath(
+            '//p[@class="itemCode"]/text()').extract()[0].strip())[0]
+
+        nutritions = {}
+        for row in response.xpath('//table[@class="nutritionTable"]/tr'):
+            th = row.xpath('./th/text()').extract()
+            if not th:
+                th = ['Energy kcal']
+            td = row.xpath('./td[1]/text()').extract()[0]
+            nutritions[th[0]] = td
+
+        product_origin = ' '.join(response.xpath(
+            './/h3[@class="productDataItemHeader" and text()="Country of Origin"]/following-sibling::div[1]/p/text()').extract())
