@@ -21,10 +21,10 @@ class BasicSpider(Spider):
             yield response.follow(url, callback=self.parse_department_pages)
 
     def parse_department_pages(self, response: HtmlResponse):
-        # product_grid = response.xpath('//ul[@class="productLister gridView"]')
-        # if product_grid:
-        #     for product in self.handle_product_listings(response):
-        #         yield product
+        product_grid = response.xpath('//ul[@class="productLister gridView"]')
+        if product_grid:
+            for product in self.handle_product_listings(response):
+                yield product
 
         pages = response.xpath('//ul[@class="categories shelf"]/li/a')
         if not pages:
@@ -35,3 +35,13 @@ class BasicSpider(Spider):
 
         for url in pages:
             yield response.follow(url, callback=self.parse_department_pages)
+
+    def handleProductListings(self, response: HtmlResponse):
+        urls = response.xpath(
+            '//ul[@class="productLister gridView"]//li[@class="gridItem"]//h3/a')
+        for url in urls:
+            yield response.follow(url, callback=self.parse_product_detail)
+
+        next_page = response.xpath('//ul[@clas="pages"]/li[@class="next"]/a')
+        if next_page:
+            yield response.follow(next_page, callback=self.handle_product_listings)
