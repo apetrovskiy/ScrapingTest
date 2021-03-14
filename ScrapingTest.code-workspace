@@ -7,6 +7,7 @@
 	"settings": {
 		"files.watcherExclude": {
 			"**/target": true
-		}
+		},
+		"activestate.promptRuntimeCreation": false
 	}
 }
