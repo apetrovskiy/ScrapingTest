@@ -2,6 +2,7 @@ import re
 # import scrapy
 from scrapy.http import HtmlResponse
 from scrapy.spiders import Spider
+from Hajba.ch04.sainsburys.sainsburys.items import SainsburysItem
 
 
 reviews_pattern = re.compile("Reviews \((\d+)\)")
@@ -51,6 +52,9 @@ class BasicSpider(Spider):
             yield response.follow(next_page, callback=self.handle_product_listings)
 
     def parse_product_detail(self, response: HtmlResponse):
+        item=SainsburysItem()
+        item['url']=response.url
+        # TODO: continue
         product_name = response.xpath('//h1/text()').extract()[0].strip()
         # product_image = response.urljoin(response.xpath('//div[@id="productImageHolder"]/img/@src').extract()[0])
         # product_image = response.urljoin(response.xpath('//div[@class="pd__left skipto-content"]/img/@src').extract()[0])
