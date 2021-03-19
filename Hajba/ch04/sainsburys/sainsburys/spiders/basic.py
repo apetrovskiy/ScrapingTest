@@ -26,6 +26,10 @@ class BasicSpider(Spider):
             yield response.follow(url, callback=self.parse_department_pages)
 
     def parse_department_pages(self, response: HtmlResponse):
+        print("==============================================================")
+        print("parse_department_pages")
+        print(response.url)
+        print("--------------------------------------------------------------")
         product_grid = response.xpath('//ul[@class="productLister gridView"]')
         if product_grid:
             for product in self.handle_product_listings(response):
@@ -42,6 +46,10 @@ class BasicSpider(Spider):
             yield response.follow(url, callback=self.parse_department_pages)
 
     def handle_product_listings(self, response: HtmlResponse):
+        print("==============================================================")
+        print("handle_product_listings")
+        print(response.url)
+        print("--------------------------------------------------------------")
         urls = response.xpath(
             '//ul[@class="productLister gridView"]//li[@class="gridItem"]//h3/a')
         for url in urls:
@@ -52,6 +60,10 @@ class BasicSpider(Spider):
             yield response.follow(next_page, callback=self.handle_product_listings)
 
     def parse_product_detail(self, response: HtmlResponse):
+        print("==============================================================")
+        print("parse_product_detail")
+        print(response.url)
+        print("--------------------------------------------------------------")
         item = SainsburysItem()
         item['url'] = response.url
         # item['product_name'] = response.xpath('//h1/text()').extract()[0].strip()
@@ -59,7 +71,7 @@ class BasicSpider(Spider):
         # product_image = response.urljoin(response.xpath('//div[@id="productImageHolder"]/img/@src').extract()[0])
         # product_image = response.urljoin(response.xpath('//div[@class="pd__left skipto-content"]/img/@src').extract()[0])
         # product_image = response.urljoin(response.xpath('//div[@class="productInfo"]//img/@src').extract()[0])
-        item['product_image'] = "" if response.xpath('//div[@class="pd__left skipto-content"]//img/@src').extract() == "" else response.urljoin(response.xpath('//div[@class="pd__left skipto-content"]//img/@src').extract()[0])
+        item['product_image'] = "" if response.xpath('//div[@class="pd__left skipto-content"]/img/@src').extract() == "" else response.urljoin(response.xpath('//div[@class="pd__left skipto-content"]/img/@src').extract()[0])
 
         # price_per_unit = response.xpath('//div[@class="pricing"]/p[@class="pricePerUnit"]/text()').extract()[0].strip()
         item['price_per_unit'] = response.xpath(
